@@ -88,26 +88,38 @@
 
   /* ---------- grid ---------- */
   const grid = $("#grid");
+  const cardHTML = (p, i, feat) => {
+    const c = catById[p.category];
+    return `<button class="card${feat ? " feat" : ""}" data-n="${p.n}" style="--c:${c.color}; animation-delay:${i * 60}ms">
+      <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : genThumb(p)}</div>
+      <div class="card-info"><span class="card-title">${esc(p.title)}</span><span class="card-year">${esc(p.year)}</span></div>
+      ${feat ? `<p class="card-desc">${esc(p.description)}</p>` : ""}
+      <span class="pill">${esc(c.label)}</span>
+    </button>`;
+  };
   function render() {
     filtersEl.querySelectorAll(".chip").forEach((b) =>
       b.setAttribute("aria-selected", String(b.dataset.id === active)));
     const list = active === "all" ? projects : projects.filter((p) => p.category === active);
     grid.innerHTML = list.length
-      ? list.map((p, i) => {
-          const c = catById[p.category];
-          return `<button class="card" data-n="${p.n}" style="--c:${c.color}; animation-delay:${i * 60}ms">
-            <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : genThumb(p)}</div>
-            <div class="card-info"><span class="card-title">${esc(p.title)}</span><span class="card-year">${esc(p.year)}</span></div>
-            <span class="pill">${esc(c.label)}</span>
-          </button>`;
-        }).join("")
+      ? list.map((p, i) => cardHTML(p, i)).join("")
       : `<p class="empty">עדיין אין פרויקטים בקטגוריה הזו.</p>`;
   }
-  grid.addEventListener("click", (e) => {
+  const onCardClick = (e) => {
     const card = e.target.closest(".card");
     if (card) openModal(projects.find((p) => p.n === +card.dataset.n));
-  });
+  };
+  grid.addEventListener("click", onCardClick);
   render();
+
+  /* ---------- featured (order as written in projects.js) ---------- */
+  const featured = projects.filter((p) => p.featured).sort((a, b) => a.n - b.n);
+  if (featured.length) {
+    $("#featGrid").innerHTML = featured.map((p, i) => cardHTML(p, i, true)).join("");
+    $("#featGrid").addEventListener("click", onCardClick);
+  } else {
+    $("#featured").remove();
+  }
 
   /* ---------- modal ---------- */
   const modal = $("#modal");
