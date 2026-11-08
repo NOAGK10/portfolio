@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>תיק עבודות</title>
+  <meta name="description" content="תיק עבודות — וידאו, אתרים, גרפיקה ותאורה">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@400;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="spot" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#top" class="logo" data-site="name"></a>
+    <nav>
+      <a href="#work">עבודות</a>
+      <a href="#about">עליי</a>
+      <a href="#contact">צור קשר</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="hero-kicker">תיק עבודות · <span id="year"></span></p>
+      <h1 class="hero-title">
+        <span class="line" data-site="name"></span>
+        <span class="line outline">עושה</span>
+        <span class="line rotator"><span id="rotWord"></span></span>
+      </h1>
+      <div class="hero-foot">
+        <p class="hero-role" data-site="role"></p>
+        <div class="stats">
+          <div><b id="statProjects">0</b><span>פרויקטים</span></div>
+          <div><b id="statCats">0</b><span>תחומים</span></div>
+        </div>
+      </div>
+      <a href="#work" class="scroll-cue" aria-label="גלילה לעבודות">↓</a>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+    <section id="work" class="work">
+      <div class="section-head">
+        <h2>עבודות<span class="dot">.</span></h2>
+        <div class="filters" id="filters" role="tablist" aria-label="סינון לפי קטגוריה"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section id="about" class="about">
+      <h2>קצת עליי<span class="dot">.</span></h2>
+      <p class="about-text" data-site="about"></p>
+    </section>
+
+    <section id="contact" class="contact">
+      <p class="contact-kicker">בואו נעבוד ביחד</p>
+      <a class="contact-mail" id="mail"></a>
+      <div class="socials" id="socials"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year2"></span> <span data-site="name"></span></span>
+    <a href="#top">חזרה למעלה ↑</a>
+  </footer>
+
+  <dialog class="modal" id="modal">
+    <button class="modal-close" id="modalClose" aria-label="סגירה">✕</button>
+    <div class="modal-media" id="modalMedia"></div>
+    <div class="modal-body">
+      <span class="pill" id="modalCat"></span>
+      <h3 id="modalTitle"></h3>
+      <p class="modal-meta" id="modalMeta"></p>
+      <p id="modalDesc"></p>
+      <div class="tags" id="modalTags"></div>
+      <a class="btn" id="modalLink" target="_blank" rel="noopener">לצפייה בפרויקט ←</a>
+    </div>
+  </dialog>
+
+  <script src="projects.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
